@@ -67,11 +67,7 @@ initial_component = {
             local tuples = component.knowledge_base
             local policy = component.policy
             if (policy:allow_get_access(pattern, sender)) then
-                if index then
-                    return component:match_tuple(pattern)
-                else
-                    return nil
-                end
+                return component:match_tuple(pattern)
             end
         end,
 
@@ -81,12 +77,7 @@ initial_component = {
             local tuples = component.knowledge_base
             local policy = component.policy
             if (policy:allow_qry_access(pattern, sender)) then
-                local tuples = state.tuples
-                if index then
-                    return component:match_tuple(pattern)
-                else
-                    return nil
-                end
+                return component:match_tuple(pattern)
             end
         end,
 
@@ -97,7 +88,7 @@ initial_component = {
         end,
 
         new = function (name, interface, kb, policy, process)
-            new_component = {
+            local new_component = {
                 name = name,
                 interface = interface,
                 knowledge_base = kb,

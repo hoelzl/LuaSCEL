@@ -1,4 +1,4 @@
-LuaSCEL
-=======
+SCELua
+======
 
-LuaSCEL is an implementation of SCEL in Lua.
+SCELua is an implementation of SCEL in Lua.
