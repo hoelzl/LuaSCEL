@@ -8,6 +8,10 @@
 
 require "utilities"
 
+local util = _G.util
+
+-- We need to wait so that the debugger in IDEA can connect...
+-- util.sleep(0.2)
 -- require "remdebug.engine"
 -- remdebug.engine.start()
 

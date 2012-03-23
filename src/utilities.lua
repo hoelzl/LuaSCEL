@@ -5,6 +5,10 @@
 -- Time: 10:44
 --
 
+-- We use select to implement the sleep functionality.
+require "socket"
+
+
 util = {}
 
 -- A rather inefficient implementation of version 4 UUIDs
@@ -35,6 +39,10 @@ function util.uuid()
     result[#result + 1] = "-"
     append_n_digits(8)
     return table.concat(result)
+end
+
+function util.sleep(sec)
+    socket.select(nil, nil, sec)
 end
 
 -- print(util.uuid())
