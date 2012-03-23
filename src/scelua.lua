@@ -7,11 +7,12 @@
 -- An implementation of SCEL in Lua.
 
 require "utilities"
+
 -- require "remdebug.engine"
 -- remdebug.engine.start()
 
--- A dictionary containing all the components for this robot,
--- indexed by their uuid.
+-- A dictionary containing all known components, indexed by
+-- their uuid.
 components = {}
 
 -- The metatable for components
@@ -64,7 +65,7 @@ initial_component = {
         local_get = function (component, pattern, sender)
         -- Get a tuple matching 'pattern' from the local tuple space, if
         -- the policy agrees.
-            local tuples = component.knowledge_base
+            -- local tuples = component.knowledge_base
             local policy = component.policy
             if (policy:allow_get_access(pattern, sender)) then
                 return component:match_tuple(pattern)
@@ -72,7 +73,7 @@ initial_component = {
         end,
 
         local_qry = function (component, pattern, sender)
-        -- Query the local tuple space for 'pattern' if the pollicy allows
+        -- Query the local tuple space for 'pattern' if the policy allows
         -- it.
             local tuples = component.knowledge_base
             local policy = component.policy

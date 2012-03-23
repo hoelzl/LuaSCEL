@@ -11,10 +11,16 @@
 -- To get a different random seed on each run use
 -- math.randomseed(os.time())
 
-require "lua-scel"
+require "scelua"
 require "lunatest"
 
--- module ("lua-scel-test", lunatest. package.seeall)
+local lunatest = _G.lunatest
+local assert_equal  = _G.assert_equal
+local assert_true, assert_nil = _G.assert_true, _G.assert_nil
+local jit = _G.jit
+local util = _G.util
+local initial_component = _G.initial_component
+
 
 function test_uuid ()
     -- This is way too fragile...
@@ -48,6 +54,7 @@ function test_index_method ()
         initial_component.get,
         "c.interface.get ~= c.get")
 end
+
 
 lunatest.run()
 

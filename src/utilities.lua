@@ -19,7 +19,7 @@ function util.uuid()
         result[#result + 1] = digits[index]
     end
     local function append_n_digits(n)
-        for i = 1, n do
+        for _ = 1, n do
             append_digit()
         end
     end
