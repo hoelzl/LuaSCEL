@@ -1,13 +1,9 @@
----
--- Created by IntelliJ IDEA.
--- User: tc
--- Date: Jan/24/12
--- Time: 10:44
---
+-- Utilities for SCELua
 
 -- We use select to implement the sleep functionality.
 require "socket"
 
+local socket = _G.socket
 
 util = {}
 

@@ -1,19 +1,13 @@
----
--- Created by IntelliJ IDEA.
--- User: tc
--- Date: Feb/2/12
--- Time: 3:17
---
-
-
 -- Some simple tests for LuaSCEL
-
-
--- To get a different random seed on each run use
--- math.randomseed(os.time())
 
 require "scelua"
 require "lunatest"
+
+require "remdebug.engine"
+
+print("Starting remote debugger.\n")
+util.sleep(1)
+remdebug.engine.start()
 
 local lunatest = _G.lunatest
 local assert_equal  = _G.assert_equal
@@ -25,6 +19,8 @@ local initial_component = _G.initial_component
 
 function test_uuid ()
     -- This is way too fragile...
+    -- To get a different random seed on each run, change 1234 to
+    -- os.time()
     math.randomseed(1234)
     assert_equal(
         (jit and "a305d7dd-19ca-4ed9-a125-b5c164a7") or
@@ -56,6 +52,6 @@ function test_index_method ()
         "c.interface.get ~= c.get")
 end
 
-
+print(package.path)
 lunatest.run()
 

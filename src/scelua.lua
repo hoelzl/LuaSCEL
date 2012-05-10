@@ -1,23 +1,18 @@
----
--- Created by IntelliJ IDEA.
--- User: tc
--- Date: Jan/19/12
--- Time: 20:43 
---
 -- An implementation of SCEL in Lua.
 
 require "utilities"
 
 local util = _G.util
 
--- We need to wait so that the debugger in IDEA can connect...
--- util.sleep(0.2)
--- require "remdebug.engine"
--- remdebug.engine.start()
+-- A view of the ensemble.  Depending on the way in which SCELua is
+-- set up this table contains either data about the whole ensemble or
+-- the view that a single component has on the ensemble.  See
+-- doc/ensemble.md for more information.
+ensemble = {}
 
 -- A dictionary containing all known components, indexed by
 -- their uuid.
-components = {}
+ensemble.components = {}
 
 -- The metatable for components
 local component_metatable = {
@@ -101,7 +96,8 @@ initial_component = {
                 process = process
             }
             setmetatable(new_component, component_metatable)
-            components[#components] = new_component
+	    local components = ensemble.components
+            components[#components + 1] = new_component
             return new_component
         end,
 
@@ -131,7 +127,8 @@ initial_component = {
     },
 
     -- The processes running on this component.
-    -- Actually a list of co-routines with the initial process acting as scheduler.
+    -- Actually a list of co-routines with the initial process acting
+    -- as scheduler.
     --
     processes = {},
 
@@ -152,10 +149,11 @@ initial_component = {
         if location == "self" then
             return self
         else
+            local components = ensemble.components
             return components[self.names[location]] or components[location]
         end
     end,
 }
 
 setmetatable(initial_component, component_metatable)
-components[initial_component.uuid] = initial_component
+ensemble.components[initial_component.uuid] = initial_component
